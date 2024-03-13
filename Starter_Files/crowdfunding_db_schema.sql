@@ -1,4 +1,5 @@
 ﻿--Create Database 'crowdfunding_db'
+--This statement must be ran from a query of the server
 CREATE DATABASE crowdfunding_db
     WITH
     OWNER = postgres
@@ -6,6 +7,7 @@ CREATE DATABASE crowdfunding_db
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
 
+--The following code can be ran from inside a query in the 'crowdfunding_db' database
 --Table Schema 
 --Exported from QuickDBD: https://www.quickdatabasediagrams.com/
 CREATE TABLE "category" (
@@ -62,6 +64,20 @@ REFERENCES "category" ("category_id");
 
 ALTER TABLE "campaign" ADD CONSTRAINT "fk_campaign_subcategory_id" FOREIGN KEY("subcategory_id")
 REFERENCES "subcategory" ("subcategory_id");
+
+--Select each table to verify successful table creation
+SELECT * FROM category;
+SELECT * FROM subcategory;
+SELECT * FROM contacts;
+SELECT * From campaign;
+
+--import .csv files into each table
+--ABOSULTE PATH MUST BE USED HERE. USE THE PATH WHERE YOUR .CSV'S ARE STORED LOCALLY
+COPY category FROM 'C:\Users\cpord\Desktop\Class_Project\Project_2\Crowdfunding_ETL\Starter_Files\Resources\category.csv' CSV HEADER;
+COPY subcategory FROM 'C:\Users\cpord\Desktop\Class_Project\Project_2\Crowdfunding_ETL\Starter_Files\Resources\subcategory.csv' CSV HEADER;
+COPY contacts FROM 'C:\Users\cpord\Desktop\Class_Project\Project_2\Crowdfunding_ETL\Starter_Files\Resources\contacts.csv' CSV HEADER;
+COPY campaign FROM 'C:\Users\cpord\Desktop\Class_Project\Project_2\Crowdfunding_ETL\Starter_Files\Resources\campaign.csv' CSV HEADER;
+--Alternatively the above data can be imported via point in click in pgAdmin
 
 --Select all data from each table to verify import
 SELECT * FROM category;
